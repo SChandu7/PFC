@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <rect x="12" y="28" width="56" height="38" rx="8" fill="#D4A030"/>
+  <rect x="12" y="26" width="56" height="36" rx="8" fill="#F5C842"/>
+  <line x1="24" y1="26" x2="24" y2="62" stroke="#D4A030" stroke-width="2"/>
+  <line x1="36" y1="26" x2="36" y2="62" stroke="#D4A030" stroke-width="2"/>
+  <line x1="48" y1="26" x2="48" y2="62" stroke="#D4A030" stroke-width="2"/>
+  <line x1="60" y1="26" x2="60" y2="62" stroke="#D4A030" stroke-width="2"/>
+  <line x1="12" y1="35" x2="68" y2="35" stroke="#D4A030" stroke-width="2"/>
+  <line x1="12" y1="44" x2="68" y2="44" stroke="#D4A030" stroke-width="2"/>
+  <line x1="12" y1="53" x2="68" y2="53" stroke="#D4A030" stroke-width="2"/>
+  <ellipse cx="40" cy="24" rx="20" ry="6" fill="white" opacity=".95"/>
+  <ellipse cx="40" cy="22" rx="18" ry="5" fill="white"/>
+  <circle cx="33" cy="20" r="4" fill="#FF5252"/>
+  <circle cx="40" cy="18" r="4" fill="#FF5252"/>
+  <circle cx="47" cy="20" r="4" fill="#FF5252"/>
+  <path d="M28 18 Q40 10 52 18" fill="none" stroke="#FFD600" stroke-width="2"/>
+</svg>

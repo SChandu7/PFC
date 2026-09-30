@@ -1,0 +1,486 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#D62828" />
+<title>Palnadu Fried Chicken — Crispy. Juicy. Palnadu style.</title>
+<meta name="description" content="Order fried chicken, burgers, pizza, rolls, sandwiches, waffles, shakes and ice cream from Palnadu Fried Chicken. Hot delivery to your door." />
+<link rel="icon" href="images/drumstick.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<!-- ===================== ICON SPRITE ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5.5 5 10.5A5 5 0 0 1 7 13.5c0-2.5 1.5-3.5 2-5.5 1 1.5 1.5 2 2.5 2.5C11.5 7.5 11 5 12 3z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-7h5l3 7M10 10L8 6H5M15 10l1-3h3"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-nav" viewBox="0 0 24 24"><path d="M12 3l7 18-7-4-7 4z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.6 5.2"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+</svg>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="shell header__in">
+    <button class="icon-btn only-mobile" id="navToggle" aria-label="Open menu">
+      <svg><use href="#i-menu"/></svg>
+    </button>
+
+    <a class="brand" href="#/">
+      <span class="brand__mark">PFC</span>
+      <span class="brand__text">
+        <small id="helloLine">Hello, Chicken Lover! 👋</small>
+        <strong>Palnadu <em>Fried Chicken</em></strong>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <div class="nav__head only-mobile">
+        <span class="brand__mark">PFC</span>
+        <button class="icon-btn" id="navClose" aria-label="Close menu"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <a href="#/" data-nav="home">Home</a>
+      <a href="#/menu" data-nav="menu">Menu</a>
+      <a href="#/offers" data-nav="offers">Offers</a>
+      <a href="#/orders" data-nav="orders">My Orders</a>
+      <a href="#/about" data-nav="about">About</a>
+      <a href="#/profile" data-nav="profile" class="only-mobile">Profile</a>
+    </nav>
+
+    <div class="header__search" id="headerSearch">
+      <label class="search">
+        <svg><use href="#i-search"/></svg>
+        <input type="search" id="searchInput" placeholder="Search for your favourite chicken…" autocomplete="off" />
+      </label>
+      <button class="icon-btn icon-btn--soft" id="filterBtn" aria-label="Filters"><svg><use href="#i-filter"/></svg></button>
+    </div>
+
+    <div class="header__actions">
+      <div class="shop-pill" id="shopPill" hidden>
+        <span class="dot"></span><span id="shopPillText">Open</span>
+      </div>
+      <a class="icon-btn icon-btn--soft only-mobile" href="#/offers" aria-label="Offers"><svg><use href="#i-tag"/></svg><span class="badge badge--gold">%</span></a>
+      <button class="icon-btn icon-btn--soft cart-btn" id="cartBtn" aria-label="Cart">
+        <svg><use href="#i-bag"/></svg>
+        <span class="badge" id="cartBadge" hidden>0</span>
+      </button>
+      <button class="btn btn--primary btn--sm hide-mobile" id="authBtn">Sign in</button>
+      <div class="user-chip hide-mobile" id="userChip" hidden tabindex="0">
+        <span class="avatar" id="userAvatar">C</span>
+        <span id="userName">Guest</span>
+        <div class="user-menu">
+          <a href="#/profile">My profile</a>
+          <a href="#/orders">My orders</a>
+          <a href="#/addresses">Addresses</a>
+          <a href="#/admin" id="adminLink" hidden>Admin dashboard</a>
+          <a href="#/rider" id="riderLink" hidden>My deliveries</a>
+          <button id="logoutBtn">Log out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="nav-scrim" id="navScrim" hidden></div>
+
+<div class="demo-strip" id="demoStrip" hidden>
+  <div class="shell">Preview menu · showing starting prices. Live ordering switches on once the PFC server is connected.</div>
+</div>
+
+<!-- ===================== ROUTES ===================== -->
+<main id="app">
+
+  <!-- HOME -->
+  <section class="route" data-route="home" hidden>
+    <div class="shell">
+
+      <!-- Hero slider -->
+      <div class="hero" id="hero">
+        <div class="hero__track" id="heroTrack">
+
+          <div class="slide is-on">
+            <div class="slide__bg"><img src="images/food/hero-chicken2.webp" alt="" fetchpriority="high"></div>
+            <div class="slide__glass">
+              <span class="eyebrow"><i class="live-dot"></i>Limited time</span>
+              <h1>Crispy. Juicy.<br><em>Irresistible.</em></h1>
+              <p>100% real chicken — brined overnight, hand-breaded and fried fresh when you order.</p>
+              <div class="slide__cta">
+                <a class="btn btn--primary" href="#/menu/fried-chicken">Order now <svg><use href="#i-arrow"/></svg></a>
+                <span class="slide__price">Buckets from <b>₹249</b></span>
+              </div>
+            </div>
+            <div class="bubbles" aria-hidden="true">
+              <img class="bubble b1 float-a" src="images/food/hot-wings.webp" alt="">
+              <img class="bubble b2 float-b" src="images/food/popcorn.webp" alt="">
+              <img class="bubble b3 float-c" src="images/food/fries.webp" alt="">
+            </div>
+          </div>
+
+          <div class="slide">
+            <div class="slide__bg"><img src="images/food/hero-burger.webp" alt="" loading="lazy"></div>
+            <div class="slide__glass">
+              <span class="eyebrow"><i class="live-dot"></i>New · Loaded</span>
+              <h1>Burger &amp;<br><em>Fries combo.</em></h1>
+              <p>Crispy chicken fillet, creamy mayo and fresh lettuce in a toasted bun — with golden fries.</p>
+              <div class="slide__cta">
+                <a class="btn btn--primary" href="#/menu/burger">Grab a burger <svg><use href="#i-arrow"/></svg></a>
+                <span class="slide__price">From <b>₹89</b></span>
+              </div>
+            </div>
+            <div class="bubbles" aria-hidden="true">
+              <img class="bubble b1 float-a" src="images/food/fries-peri.webp" alt="" loading="lazy">
+              <img class="bubble b2 float-b" src="images/food/shake-choc.webp" alt="" loading="lazy">
+              <img class="bubble b3 float-c" src="images/food/strips.webp" alt="" loading="lazy">
+            </div>
+          </div>
+
+          <div class="slide slide--flip">
+            <div class="slide__bg"><img src="images/food/hero-dessert.webp" alt="" loading="lazy"></div>
+            <div class="slide__glass">
+              <span class="eyebrow"><i class="live-dot"></i>Sweet tooth</span>
+              <h1>Waffles, shakes<br><em>&amp; ice cream.</em></h1>
+              <p>Hot waffles, thick shakes and cold scoops to finish your meal strong.</p>
+              <div class="slide__cta">
+                <a class="btn btn--primary" href="#/menu/waffles">See desserts <svg><use href="#i-arrow"/></svg></a>
+                <span class="slide__price">From <b>₹59</b></span>
+              </div>
+            </div>
+            <div class="bubbles" aria-hidden="true">
+              <img class="bubble b1 float-a" src="images/food/icecream.webp" alt="" loading="lazy">
+              <img class="bubble b2 float-b" src="images/food/shake-strawberry.webp" alt="" loading="lazy">
+              <img class="bubble b3 float-c" src="images/food/waffle-fruit.webp" alt="" loading="lazy">
+            </div>
+          </div>
+
+        </div>
+        <div class="hero__dots" id="heroDots"></div>
+      </div>
+
+      <!-- Categories -->
+      <div class="section-head">
+        <h2>What are you craving?</h2>
+        <a href="#/menu" class="link">Full menu <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="cat-rail" id="catRail"></div>
+
+      <!-- Popular -->
+      <div class="section-head">
+        <h2>Popular right now <span class="fire">🔥</span></h2>
+        <a href="#/menu" class="link">View all <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid grid--rail" id="bestsellers"></div>
+
+      <!-- Offer banner -->
+      <a class="offer" href="#/offers">
+        <img class="offer__bg" src="images/food/fries-chicken.webp" alt="" loading="lazy">
+        <div class="offer__glass">
+          <span class="eyebrow">Exclusive offer</span>
+          <h3>Flat ₹50 OFF</h3>
+          <p>On your first order above ₹299 · use code <b>PFC50</b></p>
+          <span class="btn btn--primary btn--sm">Order now <svg><use href="#i-arrow"/></svg></span>
+        </div>
+        <div class="offer__bubbles" aria-hidden="true">
+          <img class="bubble float-a" src="images/food/burger-crispy.webp" alt="" loading="lazy">
+          <img class="bubble float-c" src="images/food/leg.webp" alt="" loading="lazy">
+        </div>
+        <div class="offer__stamp"><strong>₹50</strong><span>OFF</span></div>
+      </a>
+
+      <!-- New -->
+      <div class="section-head">
+        <h2>New on the menu</h2>
+        <a href="#/menu" class="link">View all <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid grid--rail grid--one" id="newArrivals"></div>
+
+      <!-- Sweet -->
+      <div class="section-head">
+        <h2>Sweet cravings 🍨</h2>
+        <a href="#/menu/waffles" class="link">View all <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid grid--rail grid--one" id="sweetRow"></div>
+
+      <!-- Why PFC -->
+      <ul class="perks">
+        <li><span class="perk__ico"><svg><use href="#i-flame"/></svg></span><div><strong>Fried to order</strong><small>Never sits under a lamp</small></div></li>
+        <li><span class="perk__ico"><svg><use href="#i-bike"/></svg></span><div><strong><b id="statEta">35</b> min delivery</strong><small>Hot at your door</small></div></li>
+        <li><span class="perk__ico"><svg><use href="#i-grid"/></svg></span><div><strong><b id="statItems">—</b> menu items</strong><small>Chicken to waffles</small></div></li>
+        <li><span class="perk__ico"><svg><use href="#i-wallet"/></svg></span><div><strong>Cash or UPI</strong><small>Pay the way you like</small></div></li>
+      </ul>
+
+      <!-- WhatsApp -->
+      <div class="promo">
+        <img class="promo__img bubble float-a" src="images/food/bucket.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="promo__c">
+          <h3>Ordering by call or WhatsApp?</h3>
+          <p>Still works. Send us your location and we'll bring it over — or order here and track it live.</p>
+        </div>
+        <div class="promo__a">
+          <a class="btn btn--wa" id="waBtn" target="_blank" rel="noopener"><svg><use href="#i-chat"/></svg> WhatsApp</a>
+          <a class="btn btn--outline" id="callBtn" href="tel:"><svg><use href="#i-phone"/></svg> Call the shop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="route" data-route="menu" hidden>
+    <div class="shell">
+      <div class="menu-head">
+        <div>
+          <h1 id="menuTitle">Full menu</h1>
+          <span class="muted" id="menuCount"></span>
+        </div>
+        <div class="filters" id="filters">
+          <div class="chips" id="filterFood">
+            <button class="chip is-on" data-food="">All</button>
+            <button class="chip" data-food="VEG"><i class="veg-dot"></i>Veg</button>
+            <button class="chip" data-food="NONVEG"><i class="veg-dot is-nonveg"></i>Non-veg</button>
+            <button class="chip" data-food="EGG"><i class="veg-dot is-egg"></i>Egg</button>
+          </div>
+          <div class="chips" id="filterPrice">
+            <button class="chip is-on" data-price="">Any size</button>
+            <button class="chip" data-price="REGULAR">Regular</button>
+            <button class="chip" data-price="MEDIUM">Medium</button>
+            <button class="chip" data-price="LARGE">Large</button>
+          </div>
+          <button class="link" id="clearFilters">Clear</button>
+        </div>
+      </div>
+      <div class="cat-rail cat-rail--menu" id="filterCats"></div>
+      <div id="subRail" class="sub-rail"></div>
+      <div class="grid" id="menuGrid"></div>
+      <div class="empty" id="menuEmpty" hidden>
+        <img class="empty__img bubble float-a" src="images/food/bucket.webp" alt="">
+        <h3>Nothing here yet</h3><p>Try a different category or clear the filters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="route" data-route="offers" hidden>
+    <div class="shell">
+      <h1 class="page-title">Offers &amp; deals</h1>
+      <div class="coupons" id="couponList"></div>
+      <div class="section-head"><h2>On discount today</h2></div>
+      <div class="grid" id="offerGrid"></div>
+    </div>
+  </section>
+
+  <!-- ORDERS -->
+  <section class="route" data-route="orders" hidden>
+    <div class="shell narrow">
+      <h1 class="page-title">My orders</h1>
+      <div id="ordersList" class="orders"></div>
+      <div class="empty" id="ordersEmpty" hidden>
+        <img class="empty__img bubble float-a" src="images/food/bucket.webp" alt="">
+        <h3>No orders yet</h3><p>Your first bucket is one tap away.</p>
+        <a class="btn btn--primary" href="#/menu">Browse the menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER DETAIL -->
+  <section class="route" data-route="order" hidden>
+    <div class="shell narrow" id="orderDetail"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="route" data-route="profile" hidden>
+    <div class="shell narrow" id="profileBody"></div>
+  </section>
+
+  <!-- RIDER (delivery boy) -->
+  <section class="route" data-route="rider" hidden>
+    <div class="shell narrow" id="riderBody"></div>
+  </section>
+
+  <!-- ADDRESSES -->
+  <section class="route" data-route="addresses" hidden>
+    <div class="shell narrow">
+      <h1 class="page-title">Saved addresses</h1>
+      <div id="addressList" class="addr-list"></div>
+      <button class="btn btn--primary" id="addAddrBtn"><svg><use href="#i-plus"/></svg> Add a new address</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="route" data-route="about" hidden>
+    <div class="shell narrow about">
+      <div class="about__hero">
+        <div>
+          <span class="eyebrow eyebrow--red">Our story</span>
+          <h1 class="page-title">Palnadu Fried Chicken</h1>
+          <p>We fry to order. Every piece is brined, hand-breaded and dropped fresh, so what reaches you is hot, loud and crisp — the way fried chicken is supposed to be.</p>
+        </div>
+        <img class="bubble float-a" src="images/food/party-bucket.webp" alt="" aria-hidden="true" loading="lazy">
+      </div>
+      <div class="about__grid" id="aboutInfo"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="route route--admin" data-route="admin" hidden>
+    <div class="admin">
+      <aside class="admin__side">
+        <div class="admin__brand"><span class="brand__mark">PFC</span> Admin</div>
+        <nav class="admin__nav">
+          <button class="is-on" data-tab="live">🔔 Live orders <span class="pill" id="liveCount">0</span></button>
+          <button data-tab="overview">📊 Overview</button>
+          <button data-tab="products">🍗 Products</button>
+          <button data-tab="cats">🗂 Categories</button>
+          <button data-tab="addons">➕ Add-ons</button>
+          <button data-tab="coupons">🎟 Coupons</button>
+          <button data-tab="history">📜 Order history</button>
+          <button data-tab="team">🛵 Team &amp; riders</button>
+          <button data-tab="customers">👥 Customers</button>
+          <button data-tab="settings">⚙️ Shop settings</button>
+        </nav>
+        <div class="admin__foot">
+          <label class="switch">
+            <input type="checkbox" id="acceptToggle" />
+            <span></span> Accepting orders
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="soundToggle" checked />
+            <span></span> New-order sound
+          </label>
+        </div>
+      </aside>
+
+      <div class="admin__main">
+        <div class="admin__top">
+          <h2 id="adminTitle">Live orders</h2>
+          <div class="admin__top-actions">
+            <span class="muted" id="adminClock"></span>
+            <button class="btn btn--ghost btn--sm" id="adminRefresh">Refresh</button>
+          </div>
+        </div>
+        <button class="sound-strip" id="soundStrip" hidden>🔈 Tap here to switch on the new-order alarm</button>
+        <div id="adminBody" class="admin__body"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell footer__in">
+    <div class="footer__brand">
+      <a class="brand" href="#/">
+        <span class="brand__mark">PFC</span>
+        <span class="brand__text"><small>Crispy &amp; Crunchy</small><strong>Palnadu <em>Fried Chicken</em></strong></span>
+      </a>
+      <p class="footer__addr"><svg><use href="#i-pin"/></svg><span id="footAddr"></span></p>
+    </div>
+    <div class="footer__col">
+      <h4>Order</h4>
+      <a href="#/menu">Full menu</a>
+      <a href="#/offers">Offers</a>
+      <a href="#/orders">Track my order</a>
+    </div>
+    <div class="footer__col">
+      <h4>PFC</h4>
+      <a href="#/about">About us</a>
+      <a href="#/profile">My account</a>
+      <a href="#/admin">Shop admin</a>
+    </div>
+    <div class="footer__copy">© <span id="year"></span> Palnadu Fried Chicken · Made in Guntur</div>
+  </div>
+</footer>
+
+<!-- ===================== MOBILE BOTTOM NAV ===================== -->
+<nav class="tabbar" id="tabbar" aria-label="Quick">
+  <a href="#/" data-tab-nav="home"><svg><use href="#i-home"/></svg><span>Home</span></a>
+  <a href="#/menu" data-tab-nav="menu"><svg><use href="#i-grid"/></svg><span>Menu</span></a>
+  <button class="tabbar__cart" id="tabCart" aria-label="Cart">
+    <span class="tabbar__fab"><svg><use href="#i-bag"/></svg><em id="tabCartCount" hidden>0</em></span>
+    <span>Cart</span>
+  </button>
+  <a href="#/orders" data-tab-nav="orders"><svg><use href="#i-receipt"/></svg><span>Orders</span></a>
+  <a href="#/profile" data-tab-nav="profile"><svg><use href="#i-user"/></svg><span>Profile</span></a>
+</nav>
+
+<!-- floating "view cart" bar -->
+<button class="cart-bar" id="cartBar" hidden>
+  <span class="cart-bar__l"><b id="cartBarCount">0 items</b><small id="cartBarTotal">₹0</small></span>
+  <span class="cart-bar__r">View cart <svg><use href="#i-arrow"/></svg></span>
+</button>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div class="drawer" id="cartDrawer" hidden>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <h3>Your cart</h3>
+      <button class="icon-btn icon-btn--soft" data-close-cart aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    </div>
+    <div class="drawer__body" id="cartBody"></div>
+    <div class="drawer__foot" id="cartFoot" hidden>
+      <div class="coupon">
+        <svg><use href="#i-tag"/></svg>
+        <input id="couponInput" placeholder="Coupon code" />
+        <button class="btn btn--ghost btn--sm" id="couponBtn">Apply</button>
+      </div>
+      <div class="bill" id="cartBill"></div>
+      <button class="btn btn--primary btn--block btn--lg" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__panel" id="modalPanel"></div>
+</div>
+
+<!-- new-order alarm (admin) -->
+<div class="alarm" id="orderAlarm" hidden>
+  <div class="alarm__card" role="alertdialog" aria-labelledby="alarmTitle">
+    <div class="alarm__ring"><svg><use href="#i-bell"/></svg></div>
+    <h3 id="alarmTitle">New order!</h3>
+    <p class="alarm__meta" id="alarmText"></p>
+    <div class="alarm__items" id="alarmItems"></div>
+    <div class="alarm__actions">
+      <button class="btn btn--primary btn--lg btn--block" id="alarmAccept"><svg><use href="#i-check"/></svg> Accept order</button>
+      <button class="btn btn--ghost btn--block" id="alarmView">View all live orders</button>
+    </div>
+    <button class="link" id="alarmMute">Silence for 1 minute</button>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+<div class="loader" id="loader" hidden><div class="loader__ring"></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+</body></html>
