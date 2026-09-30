@@ -30,7 +30,6 @@ const S = {
   user: JSON.parse(store.get('pfc_user', 'null')),
   shop: null, categories: [], products: [], addons: [], banners: [],
   cart: null, addresses: [],
-  demo: false,
   favs: new Set(JSON.parse(store.get('pfc_favs', '[]'))),
   filter: { cat: '', sub: '', food: '', size: '', q: '' },
   pickedVariant: {},                 // productId -> variantId
@@ -149,6 +148,7 @@ async function refreshToken() {
 
 function saveSession(d) {
   S.access = d.access; S.refresh = d.refresh; S.user = d.user;
+  $('#demoStrip').hidden = true;
   store.set('pfc_access', d.access);
   store.set('pfc_refresh', d.refresh);
   store.set('pfc_user', JSON.stringify(d.user));
@@ -156,7 +156,7 @@ function saveSession(d) {
 }
 function signOut(silent) {
   api('/auth/logout/', { method: 'POST', body: { refresh: S.refresh } }).catch(() => { });
-  S.access = S.refresh = ''; S.user = null; if (!S.demo) S.cart = null;
+  S.access = S.refresh = ''; S.user = null; S.cart = null;
   ['pfc_access', 'pfc_refresh', 'pfc_user'].forEach(k => store.del(k));
   paintUser(); paintCartBadge();
   if (!silent) toast('Logged out.');
@@ -165,46 +165,7 @@ function signOut(silent) {
 }
 
 /* ---------------------------------------------------------------- preview menu */
-/* Preview menu — mirrors pfc_backend seed_menu.py (starting prices). Used only when the API is unreachable or empty. */
-const DEMO_SHOP = {"name": "Palnadu Fried Chicken", "tagline": "Crispy & Crunchy", "phone": "8790709313", "whatsapp": "8790709313", "address": "Opposite Nagarjuna University, Namburu, Guntur, Andhra Pradesh", "latitude": "16.331000", "longitude": "80.452000", "opens_at": "11:00", "closes_at": "23:00", "delivery_radius_km": "8.0", "delivery_fee": "30.00", "free_delivery_above": "499.00", "packing_fee": "15.00", "gst_percent": "5.00", "min_order_value": "99.00", "avg_delivery_minutes": 35, "closed_message": "Kitchen is closed. We open at 11:00 AM."};
-const DEMO_ADDONS = [["Extra cheese slice", "25"], ["Peri peri sprinkle", "15"], ["Mayo dip", "20"], ["Schezwan dip", "20"], ["Extra chicken patty", "60"], ["Chocolate sauce", "20"], ["Ice cream scoop", "40"]];
-const DEMO_MENU = [["Fried Chicken","Crispy & Crunchy","🍗",[["Buckets",[["Chicken Bucket","NONVEG","Hand-breaded, fried to order, PFC's signature.",[["MEDIUM","4 pc","249","279"],["LARGE","6 pc","349","399"],["FAMILY","8 pc bucket","449","529"]],"B"],["Mixed Party Bucket","NONVEG","Wings, strips and popcorn chicken in one bucket.",[["LARGE","10 pc","399",null],["FAMILY","15 pc","579","649"]],"B"]]],["Hot Wings",[["Hot Wings","NONVEG","Fiery wings tossed in our own masala.",[["REGULAR","4 pc","139",null],["MEDIUM","6 pc","199","229"],["LARGE","10 pc","319",null]],"B"],["Peri Peri Wings","NONVEG","Wings dusted with peri peri after the fryer.",[["REGULAR","4 pc","149",null],["MEDIUM","6 pc","219",null]],"N"]]],["Boneless Strips",[["Chicken Strips","NONVEG","Boneless strips, crunchy coating, no bones to fight.",[["REGULAR","3 pc","129",null],["MEDIUM","5 pc","199",null],["LARGE","8 pc","299","339"]],"B"]]],["Popcorn",[["Popcorn Chicken","NONVEG","Bite-sized chicken, impossible to stop eating.",[["REGULAR","Regular","99",null],["MEDIUM","Medium","149",null],["LARGE","Large","199","229"]],"B"]]],["Leg Piece",[["Fried Chicken Leg","NONVEG","Juicy leg piece, crisp all the way round.",[["REGULAR","1 pc","89",null],["MEDIUM","2 pc","169",null]],""]]]]],["Burger","Juicy & Spicy","🍔",[["Chicken Burgers",[["Crispy Chicken Burger","NONVEG","Fried chicken fillet, lettuce, mayo, toasted bun.",[["REGULAR","Regular","119",null],["LARGE","Large","159","179"]],"B"],["Spicy Zinger Burger","NONVEG","Marinated spicy fillet with chilli mayo.",[["REGULAR","Regular","139",null],["LARGE","Large","179",null]],"B"],["Double Patty Burger","NONVEG","Two chicken patties, double cheese.",[["LARGE","Large","229","259"]],"N"]]],["Veg Burgers",[["Veg Aloo Burger","VEG","Spiced potato patty, crunchy and simple.",[["REGULAR","Regular","89",null],["LARGE","Large","119",null]],""],["Paneer Burger","VEG","Crumb-fried paneer with mint mayo.",[["REGULAR","Regular","129",null],["LARGE","Large","169",null]],""]]]]],["Pizza","Fresh & Cheesy","🍕",[["Veg Pizza",[["Margherita","VEG","Cheese, tomato, basil. The plain classic.",[["REGULAR","7 inch","149",null],["MEDIUM","9 inch","249",null],["LARGE","12 inch","399","449"]],""],["Farm Fresh Veg","VEG","Capsicum, onion, corn, tomato, olives.",[["REGULAR","7 inch","179",null],["MEDIUM","9 inch","299",null],["LARGE","12 inch","449",null]],""]]],["Chicken Pizza",[["Chicken Tikka Pizza","NONVEG","Tandoori chicken chunks with onion and capsicum.",[["REGULAR","7 inch","219",null],["MEDIUM","9 inch","349",null],["LARGE","12 inch","529","599"]],"B"],["Chicken Overloaded","NONVEG","Every chicken topping we have, on one base.",[["MEDIUM","9 inch","399",null],["LARGE","12 inch","599","679"]],"N"]]]]],["Sandwich","Delicious & Tasty","🥪",[["Grilled",[["Grilled Chicken Sandwich","NONVEG","Shredded chicken, cheese, grilled crisp.",[["REGULAR","Regular","129",null],["LARGE","Jumbo","179",null]],"B"],["Grilled Veg Sandwich","VEG","Vegetables and cheese, pressed hot.",[["REGULAR","Regular","99",null],["LARGE","Jumbo","139",null]],""]]],["Club",[["Chicken Club Sandwich","NONVEG","Triple decker with chicken, egg and salad.",[["LARGE","Club","189","219"]],""]]]]],["Rolls","Hot & Yummy","🌯",[["Chicken Rolls",[["Chicken Kathi Roll","NONVEG","Spiced chicken wrapped in a soft paratha.",[["REGULAR","Single","119",null],["MEDIUM","Double","189",null]],"B"],["Chicken Shawarma Roll","NONVEG","Shawarma chicken, garlic sauce, pickled onion.",[["REGULAR","Regular","139",null],["LARGE","Jumbo","199","229"]],"B"]]],["Veg & Egg Rolls",[["Paneer Roll","VEG","Tandoori paneer with mint chutney.",[["REGULAR","Single","109",null],["MEDIUM","Double","179",null]],""],["Egg Roll","EGG","Double egg, onion, green chilli.",[["REGULAR","Single","89",null],["MEDIUM","Double","149",null]],""]]]]],["Fries","Crispy & Golden","🍟",[["Classic",[["Salted Fries","VEG","Golden, crisp, lightly salted.",[["REGULAR","Regular","79",null],["MEDIUM","Medium","109",null],["LARGE","Large","149",null]],"B"]]],["Loaded",[["Peri Peri Fries","VEG","Fries tossed in peri peri seasoning.",[["REGULAR","Regular","99",null],["MEDIUM","Medium","129",null],["LARGE","Large","169",null]],"B"],["Cheese Loaded Fries","VEG","Fries drowned in molten cheese sauce.",[["MEDIUM","Medium","149",null],["LARGE","Large","199","229"]],"N"],["Chicken Loaded Fries","NONVEG","Fries topped with popcorn chicken and cheese.",[["MEDIUM","Medium","179",null],["LARGE","Large","239","269"]],"N"]]]]],["Waffles","Sweet & Delicious","🧇",[["Chocolate",[["Belgian Chocolate Waffle","VEG","Crisp waffle under a river of chocolate.",[["REGULAR","Half","119",null],["LARGE","Full","179","199"]],"B"],["Double Chocolate Waffle","VEG","Dark and milk chocolate together.",[["LARGE","Full","209",null]],"N"]]],["Fruit & Ice Cream",[["Fruit Waffle","VEG","Seasonal fruit, honey drizzle.",[["REGULAR","Half","129",null],["LARGE","Full","189",null]],""],["Ice Cream Waffle","VEG","Hot waffle, cold scoop, chocolate sauce.",[["LARGE","Full","219","249"]],"B"]]]]],["Ice Creams","Tasty & Creamy","🍦",[["Scoops",[["Vanilla Scoop","VEG","Plain, cold, always right.",[["REGULAR","1 scoop","59",null],["MEDIUM","2 scoops","99",null]],""],["Chocolate Scoop","VEG","Rich chocolate ice cream.",[["REGULAR","1 scoop","69",null],["MEDIUM","2 scoops","119",null]],""]]],["Sundae",[["Chocolate Brownie Sundae","VEG","Brownie, ice cream, sauce, nuts.",[["MEDIUM","Regular","159","179"]],"B"]]]]],["Milk Shakes","Thick & Creamy","🥤",[["Chocolate",[["Chocolate Shake","VEG","Thick chocolate shake, no shortcuts.",[["REGULAR","Regular","99",null],["LARGE","Large","139",null]],"B"],["Oreo Shake","VEG","Cookies blended right through.",[["REGULAR","Regular","119",null],["LARGE","Large","159",null]],"B"]]],["Fruit",[["Mango Shake","VEG","Seasonal mango, milk, ice.",[["REGULAR","Regular","99",null],["LARGE","Large","139",null]],""],["Strawberry Shake","VEG","Sweet, pink and cold.",[["REGULAR","Regular","109",null],["LARGE","Large","149",null]],""]]]]],["Juice","Fresh & Healthy","🧃",[["Fresh Fruit",[["Fresh Lime Juice","VEG","Lime, water, sugar or salt.",[["REGULAR","Glass","49",null]],""],["Watermelon Juice","VEG","Pressed fresh, nothing added.",[["REGULAR","Glass","69",null],["LARGE","Large","99",null]],""],["Mixed Fruit Juice","VEG","Whatever is ripest that morning.",[["REGULAR","Glass","89",null],["LARGE","Large","119",null]],""]]]]],["Drinks","Chilled & Refreshing","🥤",[["Soft Drinks",[["Soft Drink","VEG","Chilled bottle.",[["REGULAR","250 ml","25",null],["MEDIUM","600 ml","45",null],["LARGE","1.25 L","75",null]],""]]],["Mojito",[["Virgin Mojito","VEG","Mint, lime, soda, plenty of ice.",[["REGULAR","Glass","89",null]],"N"],["Blue Lagoon","VEG","Blue curacao mocktail, no alcohol.",[["REGULAR","Glass","99",null]],"N"]]],["Water",[["Mineral Water","VEG","1 litre bottle.",[["REGULAR","1 L","20",null]],""]]]]]];
-
-function buildDemo() {
-  const SIZE = { REGULAR: 'Regular', MEDIUM: 'Medium', LARGE: 'Large', FAMILY: 'Family' };
-  const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-  const cats = [], prods = [];
-  let vid = 1, sid = 1;
-  DEMO_MENU.forEach(([name, tagline, emoji, subs], ci) => {
-    const cat = { id: ci + 1, name, slug: slugify(name), tagline, image: '', icon_emoji: emoji, sort_order: ci, is_active: true, subcategories: [] };
-    subs.forEach(([sname, items]) => {
-      const sub = { id: sid++, name: sname, slug: slugify(sname), image: '' };
-      cat.subcategories.push(sub);
-      items.forEach(([pn, food, desc, vars, flags]) => {
-        const h = hash(pn);
-        const variants = vars.map(([size, label, price, mrp], i) => ({
-          id: vid++, size, size_display: SIZE[size] || size, label, price: Number(price), mrp: mrp ? Number(mrp) : null,
-          is_default: i === 0, is_active: true, in_stock: true,
-          discount_percent: mrp ? Math.round((Number(mrp) - Number(price)) / Number(mrp) * 100) : 0,
-        }));
-        prods.push({
-          id: 'demo-' + slugify(pn), name: pn, slug: slugify(pn), short_description: desc, image: '',
-          food_type: food, serves: '', is_available: true,
-          is_bestseller: flags.includes('B'), is_new: flags.includes('N'),
-          rating: (4.2 + (h % 8) / 10).toFixed(1), rating_count: 120 + (h % 2400),
-          category: cat.id, category_name: name, subcategory: sub.id, subcategory_name: sname,
-          base_price: variants[0].price, variants,
-        });
-      });
-    });
-    cats.push(cat);
-  });
-  return {
-    shop: { ...DEMO_SHOP, is_open: true, accepting_orders: true, cod_enabled: true, online_payment_enabled: true },
-    categories: cats, products: prods, banners: [],
-    addons: DEMO_ADDONS.map(([n, p], i) => ({ id: i + 1, name: n, price: Number(p), is_active: true })),
-  };
-}
+/* no demo data — all content comes from the backend */
 
 /* ---------------------------------------------------------------- boot */
 document.addEventListener('DOMContentLoaded', init);
@@ -216,7 +177,7 @@ async function init() {
   paintUser();
   paintSkeletons();
   await loadHome();
-  if (S.user && !S.demo) { loadCart(); loadAddresses(); }
+  if (S.user) { loadCart(); loadAddresses(); }
   window.addEventListener('hashchange', route);
   route();
 }
@@ -231,11 +192,14 @@ async function loadHome() {
     if (res.ok) d = await res.json();
   } catch (_) { /* offline / not deployed yet */ }
 
-  if (!d || !(d.products || []).length) {
-    d = buildDemo();
-    S.demo = true;
-    $('#demoStrip').hidden = false;
-    S.cart = demoCart.load();
+  if (!d) {
+    // Backend unreachable — show offline message, do not load demo data
+    document.querySelector('#bestsellers').innerHTML =
+      '<div style="text-align:center;padding:40px 20px;color:#888">' +
+      '<div style="font-size:2rem">🔌</div>' +
+      '<h3 style="margin:12px 0 6px">Server is unreachable</h3>' +
+      '<p style="margin:0;font-size:0.9rem">Please try again in a moment.</p></div>';
+    return;
   }
   S.shop = d.shop; S.categories = d.categories; S.products = d.products;
   S.banners = d.banners || []; S.addons = d.addons || [];
@@ -650,58 +614,9 @@ function openProduct(p) {
 }
 
 /* ---------------------------------------------------------------- preview cart (no server) */
-const demoCart = {
-  load() { try { const c = JSON.parse(store.get('pfc_demo_cart', 'null')); if (c && c.items) return this.total(c); } catch (_) { } return this.total({ items: [], coupon_code: '' }); },
-  save(c) { store.set('pfc_demo_cart', JSON.stringify({ items: c.items, coupon_code: c.coupon_code })); return c; },
-  find(variantId) {
-    for (const p of S.products) { const v = (p.variants || []).find(x => x.id === variantId); if (v) return { p, v }; }
-    return {};
-  },
-  add(variantId, qty, addon_ids, note) {
-    const { p, v } = this.find(variantId); if (!v) return S.cart;
-    const c = S.cart || { items: [], coupon_code: '' };
-    const key = variantId + '|' + addon_ids.slice().sort().join(',') + '|' + note;
-    const hit = c.items.find(i => i.key === key);
-    if (hit) hit.quantity += qty;
-    else c.items.push({
-      id: Date.now() + Math.floor(Math.random() * 999), key, variant: variantId, quantity: qty, note,
-      product_name: p.name, product_id: p.id, product_image: p.image || '', food_type: p.food_type,
-      variant_label: v.label || v.size_display, unit_price: Number(v.price), is_available: true,
-      addons: addon_ids.map(id => S.addons.find(a => a.id === id)).filter(Boolean).map(a => ({ id: a.id, name: a.name, price: Number(a.price) })),
-    });
-    return this.save(this.total(c));
-  },
-  setQty(itemId, qty) {
-    const c = S.cart; const it = c.items.find(i => String(i.id) === String(itemId));
-    if (it) { if (qty <= 0) c.items = c.items.filter(i => i !== it); else it.quantity = Math.min(qty, 20); }
-    return this.save(this.total(c));
-  },
-  coupon(code) {
-    const c = S.cart;
-    if (!code) { c.coupon_code = ''; return this.save(this.total(c)); }
-    if (code.toUpperCase() !== 'PFC50') throw new Error('That coupon code is not valid.');
-    if (this.total(c).totals.subtotal < 299) throw new Error('PFC50 works on orders above ₹299.');
-    c.coupon_code = 'PFC50'; return this.save(this.total(c));
-  },
-  total(c) {
-    const s = S.shop || DEMO_SHOP;
-    c.items.forEach(i => i.line_total = (i.unit_price + i.addons.reduce((a, x) => a + x.price, 0)) * i.quantity);
-    const subtotal = c.items.reduce((a, i) => a + i.line_total, 0);
-    if (c.coupon_code && subtotal < 299) c.coupon_code = '';
-    const discount = c.coupon_code ? 50 : 0;
-    const after = subtotal - discount;
-    const delivery_fee = !subtotal || after >= Number(s.free_delivery_above) ? 0 : Number(s.delivery_fee);
-    const packing_fee = subtotal ? Number(s.packing_fee) : 0;
-    const tax = Math.round(after * Number(s.gst_percent) / 100);
-    c.item_count = c.items.reduce((a, i) => a + i.quantity, 0);
-    c.totals = { subtotal, discount, delivery_fee, packing_fee, tax, grand_total: after + delivery_fee + packing_fee + tax };
-    return c;
-  },
-};
 
 /* ---------------------------------------------------------------- cart */
 async function loadCart() {
-  if (S.demo) { S.cart = demoCart.load(); paintCartBadge(); paintCart(); return; }
   if (!S.user) return;
   try { S.cart = await api('/cart/'); paintCartBadge(); paintCart(); } catch (_) { }
 }
@@ -725,11 +640,6 @@ function bumpCart() {
 }
 async function addToCart(variantId, qty = 1, addon_ids = [], note = '') {
   if (!variantId) return;
-  if (S.demo) {
-    S.cart = demoCart.add(variantId, qty, addon_ids, note);
-    paintCartBadge(); paintCart(); closeModal(); bumpCart(); toast('Added to cart', 'ok');
-    return;
-  }
   if (!S.user) { openAuth(() => addToCart(variantId, qty, addon_ids, note)); return; }
   if (S.shop && !(S.shop.is_open && S.shop.accepting_orders)) { toast(S.shop.closed_message, 'err'); return; }
   try {
@@ -740,14 +650,13 @@ async function addToCart(variantId, qty = 1, addon_ids = [], note = '') {
   finally { loading(false); }
 }
 async function setQty(itemId, qty) {
-  if (S.demo) { S.cart = demoCart.setQty(itemId, qty); paintCartBadge(); paintCart(); return; }
   try {
     S.cart = await api('/cart/items/' + itemId + '/', { method: 'PATCH', body: { quantity: qty } });
     paintCartBadge(); paintCart();
   } catch (e) { toast(e.message, 'err'); }
 }
 function openCart() {
-  if (!S.demo && !S.user) { openAuth(openCart); return; }
+  if (!S.user) { openAuth(openCart); return; }
   $('#cartDrawer').hidden = false; document.body.classList.add('no-scroll'); paintCart(); paintCartBar();
 }
 function closeCart() { $('#cartDrawer').hidden = true; document.body.classList.remove('no-scroll'); paintCartBar(); }
@@ -795,11 +704,6 @@ const row = (k, v, cls = '') => '<div class="row ' + cls + '"><span>' + esc(k) +
 
 async function applyCoupon() {
   const code = $('#couponInput').value.trim();
-  if (S.demo) {
-    try { S.cart = demoCart.coupon(code); paintCart(); paintCartBadge(); toast(code ? 'Coupon applied' : 'Coupon removed', 'ok'); }
-    catch (e) { toast(e.message, 'err'); }
-    return;
-  }
   try {
     loading(true);
     S.cart = code
@@ -826,7 +730,6 @@ function openAuth(after) {
     $('#auSend').onclick = async () => {
       phone = $('#auPhone').value.replace(/\D/g, '');
       if (!/^[6-9]\d{9}$/.test(phone)) return toast('Enter a valid 10-digit number', 'err');
-      if (S.demo) return toast('Sign-in switches on once the PFC server is live.', 'err');
       try {
         loading(true);
         const d = await api('/auth/otp/send/', { method: 'POST', auth: false, body: { phone } });
@@ -1010,14 +913,6 @@ function openAddressForm(after) {
 /* ---------------------------------------------------------------- checkout */
 async function openCheckout() {
   if (!S.cart || !S.cart.items.length) return;
-  if (S.demo) {
-    closeCart();
-    modal('<div style="text-align:center">' + bubbleImg('bucket', 'empty__img float-a') +
-      '<h3>Almost there!</h3><p class="sub">This is the preview menu. Checkout, payment and live tracking switch on as soon as the PFC server is connected.</p>' +
-      '<a class="btn btn--wa btn--block btn--lg" href="' + esc($('#waBtn').href) + '" target="_blank" rel="noopener">Order on WhatsApp instead</a>' +
-      '<button class="btn btn--ghost btn--block" style="margin-top:10px" data-close-modal>Keep browsing</button></div>');
-    return;
-  }
   if (!S.user.phone) return openAttachPhone(openCheckout);
   await loadAddresses();
   closeCart();
@@ -1114,10 +1009,10 @@ function finishOrder(order) {
 
 /* ---------------------------------------------------------------- orders */
 async function loadOrders() {
-  if (S.demo || !S.user) {
+  if (!S.user) {
     $('#ordersList').innerHTML = '';
     $('#ordersEmpty').hidden = false;
-    if (!S.demo) openAuth(loadOrders);
+    openAuth(loadOrders);
     return;
   }
   try {
@@ -1146,7 +1041,6 @@ const TRACK_STEPS = [
 ];
 
 async function loadOrderDetail(code) {
-  if (S.demo) { location.hash = '#/orders'; return; }
   if (!S.user) { openAuth(() => loadOrderDetail(code)); return; }
   try {
     loading(true);
